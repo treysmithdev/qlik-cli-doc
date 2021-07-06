@@ -1,0 +1,47 @@
+site_name: Qlik CLI Doc
+site_url: https://qlik-cli-doc.whereclause.com
+repo_url: https://github.com/treysmithdev/qlik-cli-doc
+site_description: Online reference documents for Qlik's qlik cli, a command line utility for Qlik Sense SaaS.
+site_author: Trey Smith
+copyright: Trey Smith
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  icon:
+    repo: fontawesome/brands/github
+  # features:
+  #   - navigation.tabs
+  #   - navigation.indexes
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      logo: assets/Icon-OnTeal.png
+      favicon: assets/favicon.png
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: dark)"
+      logo: assets/Icon-OnGrey.png
+      scheme: default
+      primary: blue grey
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+nav:
+  - Home: 'index.md'
+  - WhereClause: 'https://whereclause.com'
+  - Getting Started: 'https://qlik.dev/libraries-and-tools/qlik-cli'
+  - Qlik CLI Reference:
+  - About:
+    - License: 'about/license.md'
+    - 'Release Notes': 'about/release-notes.md'
+# extra:
+#   version:
+#     provider: mike
+
+markdown_extensions:
+  - attr_list

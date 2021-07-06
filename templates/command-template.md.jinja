@@ -1,0 +1,47 @@
+
+
+[**<< {{ "Home" if qHelp.path == "qlik" else qHelp.path|replace(" "+qHelp.name,"")|replace("index.md","Home") }}**](/{{ qHelp.tree.parent|replace(".md","/")|replace("index/","") }}){ .md-button }
+
+# {{ qHelp.path }}
+### Description
+
+{{ qHelp.description}}
+
+### Usage
+
+{% for use in qHelp.usage %}
+> {{ use }}
+{% endfor %}
+
+{% if is_parent %}
+### Commands
+
+{% for topic in commands %}
+#### {{ topic }}
+
+{% for cmd in commands[topic] %}
+* [`{{ cmd.name }}`](/{{qHelp.tree.child|replace("[cmd]", cmd.name)|replace(".md","/") }})  - {{ cmd.description }}
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+### Flags
+
+{% if 'local' in qHelp.flags and qHelp.flags.local|length > 0 %}
+##### Local
+
+{% for flag in qHelp.flags.local %}
+* `{{ flag.name }}` {{ "*`(" + flag.type + ")`*" if 'type' in flag else "" }} {{ "`[shorthand:" + flag.shorthand + "]`" if 'shorthand' in flag else "" }} - {{ flag.description }}
+{% endfor %}
+
+{% endif %}
+
+
+{% if 'global' in qHelp.flags and qHelp.flags.global|length > 0 %}
+##### Global
+
+{% for flag in qHelp.flags.global %}
+* `{{ flag.name }}` {{ "*`(" + flag.type + ")`*" if 'type' in flag else "" }}  {{ "`[shorthand:" + flag.shorthand + "]`" if 'shorthand' in flag  else "" }}- {{ flag.description }}
+{% endfor %}
+
+{% endif %}
