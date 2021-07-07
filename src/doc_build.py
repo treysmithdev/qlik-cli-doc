@@ -21,12 +21,6 @@ def createTopicalList(commands):
 
     for topic in distinct_topics:
         result[topic] = list(filter(lambda command: command['topic'] == topic, commands))
-        # for c in result[topic]:
-        #     if 'qHelp' in c: 
-        #         c.pop('qHelp')
-        #     else:
-        #         print(c)
-        #         c.pop('flags')
 
     return result
 
@@ -57,13 +51,13 @@ def exportMarkdown(qHelp):
     md_export.close()
 
 
-def buildIndex():
+def buildIndex(version, qVersion):
 
     templateLoader = FileSystemLoader(searchpath=os.path.join(os.path.dirname(__file__),"../templates"))
     templateEnv = Environment(loader=templateLoader)
     TEMPLATE_FILE = "index.md.jinja"
     template = templateEnv.get_template(TEMPLATE_FILE)
-    mark_down = template.render(date=datetime.today().strftime('%Y-%m-%d'))
+    mark_down = template.render(date=datetime.today().strftime('%Y-%m-%d'), version =version, qlik_version=qVersion)
     md_file = os.path.join(os.path.dirname(__file__),'../docs/index.md')
     os.makedirs(os.path.dirname(md_file), exist_ok=True)
     md_export = open(md_file, "w")
@@ -71,15 +65,15 @@ def buildIndex():
     md_export.close()
 
 
-def docBuild(qHelp):
+def docBuild(version, qVersion, qHelp):
 
     exportMarkdown(qHelp)
-    buildIndex()
+    buildIndex(version, qVersion)
 
     if len(qHelp['commands']) > 0:
 
         for command in qHelp['commands']:
 
-            docBuild(command['qHelp'])
+            docBuild(version, qVersion, command['qHelp'])
 
 

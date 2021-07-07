@@ -214,4 +214,9 @@ def qHelpBuild(params):
     return qHelp
 
 
+def qGetVersion():
 
+    response = subprocess.check_output(['qlik','version']).decode('utf-8')
+    version = response.split(' ')[1].split('\t')[0]
+    
+    return version

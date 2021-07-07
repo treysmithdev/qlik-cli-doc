@@ -1,10 +1,10 @@
 import os
 import json
-from src.help_build import qHelpBuild
+from src.help_build import qHelpBuild, qGetVersion
 from src.doc_build import docBuild 
 from src.build_nav import buildNav 
 
-__version__ = 1.0
+version = '1.0.0'
 
 def main():
     
@@ -12,7 +12,7 @@ def main():
 
     # Scrape qlik-cli for help documentation and build JSON object
     output = os.path.join(dirname, 'data/qlik-cli-help.json')
-    qlik = {"qHelp": qHelpBuild(["qlik"])}
+    qlik = {"qVersion": qGetVersion(), "qHelp": qHelpBuild(["qlik"])}
     qJSON = json.dumps(qlik,indent=4)
     with open(output,'w') as j:       
         j.write(qJSON)
@@ -22,7 +22,8 @@ def main():
     with open(input_file,'r') as d:
         data = json.load(d)
 
-    docBuild(data['qHelp'])
+    
+    docBuild(version, data['qVersion'], data['qHelp'])
 
     # Build mkdocs nav tree for qlik-cli markdown documents
     buildNav()
